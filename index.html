@@ -120,9 +120,9 @@
         </p>
     </div>
 
-    <!-- Hack do vídeo invisível (1x1 pixel) embutido em Base64 -->
+    <!-- Hack do vídeo ajustado: movido para fora da tela em vez de transparente -->
     <video id="noSleepVideo" loop muted playsinline 
-           style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -1;" 
+           style="position: absolute; width: 10px; height: 10px; top: -50px; left: -50px; z-index: -1;" 
            src="data:video/mp4;base64,AAAAHGZ0eXBpc29tAAACAGlzb21pc28ybXA0MQAAAAhmcmVlAAAAG21kYXQAAAGzABAHAAABthAwAQAAAAAAAAYrAAAALW1vb3YAAABsbXZoZAAAAAB8JbcafCW3GgAAAZAAAAAAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAANZ0cmFrAAAAXHRraGQAAAADfCW3GnwltxoAAAAAAAEAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAABAAAAAQAAAAAAJGVkdHMAAAAcZWxzdAAAAAAAAAABAAAAAQAAAAAAABAAAAAAAHBWRAAAAAAAbWRpYQAAACBtZGhkAAAAAHwltxp8JbcaAAABkAAAAAAABXgAAAAAAC1oZGxyAAAAAAAAAAB2aWRlAAAAAAAAAAAAAAAAVmlkZW9IYW5kbGVyAAAAAA1taW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAABCc3RibAAAACxzdHNkAAAAAAAAAAEAAAAcbXAxdgABAAAAMQAAAAAAAABIAAAAAgAAAAAAABBzdHRzAAAAAAAAAAEAAAABAAAAAQAAABxzdHNjAAAAAAAAAAEAAAABAAAAAQAAAAEAAAAUc3RzejAAAAAAAAAAAAAAAQAAABxzdGNvAAAAAAAAAAEAAAALAAAAGHN0c3MAAAAAAAAAAQAAAAEAAAAB">
     </video>
 
@@ -136,8 +136,7 @@
         // Evento de clique no botão (Liga / Desliga)
         wakeBtn.addEventListener('click', () => {
             if (!isAwakeModeOn) {
-                // Tenta carregar e tocar o vídeo oculto
-                video.load();
+                // Tenta tocar o vídeo oculto diretamente (sem video.load)
                 video.play().then(() => {
                     isAwakeModeOn = true;
                     
@@ -148,8 +147,8 @@
                     statusText.classList.replace('text-gray-500', 'text-emerald-500');
                     statusText.textContent = 'Bloqueado contra suspensão (inclusive em 2º plano).';
                 }).catch(err => {
-                    console.error("Erro ao reproduzir o vídeo invisível:", err);
-                    alert("O navegador bloqueou a ação. Tente novamente.");
+                    console.error("Erro ao reproduzir o vídeo:", err);
+                    alert("O navegador bloqueou a ação. Detalhe do erro: " + err.name);
                 });
             } else {
                 // Pausa o vídeo
