@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keep Me Awake - Sloth</title>
+    <!-- Tailwind CSS para estilização rápida e responsiva -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #111111;
+        }
+
+        /* Animação das pálpebras caindo e abrindo de repente */
+        .eyelids {
+            animation: sleep-snap 7s infinite;
+        }
+
+        @keyframes sleep-snap {
+            0%, 15% { transform: translateY(-12px); }      /* Bem acordado */
+            50% { transform: translateY(-5px); }           /* Começando a pesar */
+            75% { transform: translateY(-2px); }           /* Quase fechando */
+            88%, 94% { transform: translateY(1px); }       /* Dormiu... */
+            95%, 100% { transform: translateY(-12px); }    /* SUSTO! Acordou! */
+        }
+
+        /* Animação de ronco (Zzz) que só aparece quando ele dorme */
+        .zzz {
+            opacity: 0;
+            animation: zzz-anim 7s infinite;
+        }
+
+        @keyframes zzz-anim {
+            0%, 87% { opacity: 0; transform: translate(0, 0) scale(0.8); }
+            90% { opacity: 1; transform: translate(10px, -15px) scale(1); }
+            94% { opacity: 0; transform: translate(20px, -30px) scale(1.2); }
+            95%, 100% { opacity: 0; }
+        }
+
+        /* Efeito de brilho no botão quando ativado */
+        .btn-active {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5); /* Verde esmeralda brilhante */
+            border-color: #10b981;
+            color: #10b981;
+        }
+        
+        .btn-inactive {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+            border-color: #4b5563;
+            color: #d1d5db;
+        }
+    </style>
+</head>
+<body class="h-screen w-full flex flex-col justify-center items-center m-0 font-sans text-white overflow-hidden">
+
+    <div class="flex flex-col items-center max-w-md text-center p-6">
+        
+        <!-- SVG Bicho Preguiça -->
+        <svg viewBox="0 0 200 200" class="w-64 h-64 mb-8">
+            <!-- Galho -->
+            <path d="M 10 50 Q 100 70 190 40" stroke="#5D4037" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <path d="M 140 48 L 170 15" stroke="#5D4037" stroke-width="8" fill="none" stroke-linecap="round"/>
+            <!-- Folhinhas -->
+            <path d="M 170 15 Q 185 10 175 25 Q 165 30 170 15" fill="#4CAF50"/>
+            <path d="M 30 55 Q 40 40 25 35 Q 15 45 30 55" fill="#4CAF50"/>
+
+            <!-- Braços (Segurando o galho) -->
+            <path d="M 75 90 C 70 60, 60 50, 60 50" stroke="#795548" stroke-width="16" fill="none" stroke-linecap="round"/>
+            <path d="M 125 90 C 130 60, 140 50, 140 50" stroke="#795548" stroke-width="16" fill="none" stroke-linecap="round"/>
+            <path d="M 85 90 C 90 65, 80 52, 80 52" stroke="#6D4C41" stroke-width="12" fill="none" stroke-linecap="round"/>
+            <path d="M 115 90 C 110 65, 120 52, 120 52" stroke="#6D4C41" stroke-width="12" fill="none" stroke-linecap="round"/>
+
+            <!-- Corpo -->
+            <ellipse cx="100" cy="120" rx="45" ry="35" fill="#795548" />
+
+            <!-- Cabeça -->
+            <circle cx="100" cy="95" r="30" fill="#A1887F" />
+            
+            <!-- Manchas dos Olhos -->
+            <ellipse cx="85" cy="90" rx="10" ry="7.5" fill="#4E342E" transform="rotate(-15 85 90)"/>
+            <ellipse cx="115" cy="90" rx="10" ry="7.5" fill="#4E342E" transform="rotate(15 115 90)"/>
+
+            <!-- Olhos Brancos -->
+            <circle cx="85" cy="90" r="4" fill="white" />
+            <circle cx="115" cy="90" r="4" fill="white" />
+            
+            <!-- Pupilas -->
+            <circle cx="85" cy="90" r="2" fill="black" />
+            <circle cx="115" cy="90" r="2" fill="black" />
+
+            <!-- Pálpebras (Animadas para fechar e abrir) -->
+            <g class="eyelids">
+                <rect x="70" y="82" width="30" height="15" fill="#A1887F" rx="2" transform="rotate(-15 85 90)"/>
+                <rect x="100" y="82" width="30" height="15" fill="#A1887F" rx="2" transform="rotate(15 115 90)"/>
+            </g>
+
+            <!-- Nariz e Boca -->
+            <circle cx="100" cy="100" r="3" fill="black" />
+            <path d="M 95 106 Q 100 110 105 106" stroke="black" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+            <!-- Letrinhas Zzz (Dormindo) -->
+            <text x="135" y="70" fill="#E0E0E0" font-size="14" font-weight="bold" font-family="sans-serif" class="zzz">Z</text>
+            <text x="150" y="55" fill="#E0E0E0" font-size="18" font-weight="bold" font-family="sans-serif" class="zzz" style="animation-delay: 0.2s">z</text>
+            <text x="165" y="35" fill="#E0E0E0" font-size="24" font-weight="bold" font-family="sans-serif" class="zzz" style="animation-delay: 0.4s">Z</text>
+        </svg>
+
+        <!-- Título e Descrição -->
+        <h1 class="text-2xl font-bold mb-2 tracking-wide">Don't Let It Sleep!</h1>
+        <p class="text-gray-400 text-sm mb-8">
+            Pressione o botão abaixo para evitar que sua tela desligue automaticamente.
+        </p>
+
+        <!-- Botão de Ação -->
+        <button id="wakeBtn" class="btn-inactive px-8 py-3 rounded-full border-2 bg-transparent font-bold tracking-wider uppercase transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none">
+            Keep me awake
+        </button>
+
+        <p id="statusText" class="mt-4 text-xs font-semibold text-gray-500 opacity-0 transition-opacity duration-300">
+            A tela está bloqueada contra suspensão.
+        </p>
+    </div>
+
+    <!-- Hack do vídeo invisível (1x1 pixel) embutido em Base64 -->
+    <video id="noSleepVideo" loop muted playsinline 
+           style="position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; z-index: -1;" 
+           src="data:video/mp4;base64,AAAAHGZ0eXBpc29tAAACAGlzb21pc28ybXA0MQAAAAhmcmVlAAAAG21kYXQAAAGzABAHAAABthAwAQAAAAAAAAYrAAAALW1vb3YAAABsbXZoZAAAAAB8JbcafCW3GgAAAZAAAAAAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAANZ0cmFrAAAAXHRraGQAAAADfCW3GnwltxoAAAAAAAEAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAABAAAAAQAAAAAAJGVkdHMAAAAcZWxzdAAAAAAAAAABAAAAAQAAAAAAABAAAAAAAHBWRAAAAAAAbWRpYQAAACBtZGhkAAAAAHwltxp8JbcaAAABkAAAAAAABXgAAAAAAC1oZGxyAAAAAAAAAAB2aWRlAAAAAAAAAAAAAAAAVmlkZW9IYW5kbGVyAAAAAA1taW5mAAAAFHZtaGQAAAABAAAAAAAAAAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAABCc3RibAAAACxzdHNkAAAAAAAAAAEAAAAcbXAxdgABAAAAMQAAAAAAAABIAAAAAgAAAAAAABBzdHRzAAAAAAAAAAEAAAABAAAAAQAAABxzdHNjAAAAAAAAAAEAAAABAAAAAQAAAAEAAAAUc3RzejAAAAAAAAAAAAAAAQAAABxzdGNvAAAAAAAAAAEAAAALAAAAGHN0c3MAAAAAAAAAAQAAAAEAAAAB">
+    </video>
+
+    <script>
+        let isAwakeModeOn = false;
+        
+        const wakeBtn = document.getElementById('wakeBtn');
+        const statusText = document.getElementById('statusText');
+        const video = document.getElementById('noSleepVideo');
+
+        // Evento de clique no botão (Liga / Desliga)
+        wakeBtn.addEventListener('click', () => {
+            if (!isAwakeModeOn) {
+                // Tenta carregar e tocar o vídeo oculto
+                video.load();
+                video.play().then(() => {
+                    isAwakeModeOn = true;
+                    
+                    // Atualiza o visual para "Ativado"
+                    wakeBtn.textContent = 'Awake Mode ON';
+                    wakeBtn.classList.replace('btn-inactive', 'btn-active');
+                    statusText.classList.replace('opacity-0', 'opacity-100');
+                    statusText.classList.replace('text-gray-500', 'text-emerald-500');
+                    statusText.textContent = 'Bloqueado contra suspensão (inclusive em 2º plano).';
+                }).catch(err => {
+                    console.error("Erro ao reproduzir o vídeo invisível:", err);
+                    alert("O navegador bloqueou a ação. Tente novamente.");
+                });
+            } else {
+                // Pausa o vídeo
+                video.pause();
+                isAwakeModeOn = false;
+                
+                // Reseta a UI
+                wakeBtn.textContent = 'Keep me awake';
+                wakeBtn.classList.replace('btn-active', 'btn-inactive');
+                statusText.classList.replace('opacity-100', 'opacity-0');
+                statusText.classList.replace('text-emerald-500', 'text-gray-500');
+                statusText.textContent = 'A tela está bloqueada contra suspensão.';
+            }
+        });
+    </script>
+</body>
+</html>
